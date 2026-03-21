@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { Img as Image } from "@/components/ui/img";
 import Link from "next/link";
 import { components } from "@/data/setup";
 import { rapports, getRapportFinal } from "@/data/rapports";

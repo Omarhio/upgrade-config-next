@@ -11,8 +11,7 @@ const nextConfig: NextConfig = {
   basePath,
   assetPrefix: basePath,
   images: {
-    loader: "custom",
-    loaderFile: "./src/lib/image-loader.ts",
+    unoptimized: true,
   },
 };
 
