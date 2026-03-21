@@ -4,13 +4,16 @@ const isProd = process.env.NODE_ENV === "production";
 const basePath = isProd ? "/upgrade-config-next" : "";
 
 const nextConfig: NextConfig = {
-  output: "export",
+  ...(isProd && {
+    output: "export",
+    trailingSlash: true,
+  }),
   basePath,
   assetPrefix: basePath,
   images: {
-    unoptimized: true,
+    loader: "custom",
+    loaderFile: "./src/lib/image-loader.ts",
   },
-  trailingSlash: true,
 };
 
 export default nextConfig;
