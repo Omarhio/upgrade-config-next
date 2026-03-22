@@ -3,6 +3,9 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import type { Rapport } from "@/data/rapports";
+import { getRapportFinal } from "@/data/rapports";
+
+const finalId = getRapportFinal().id;
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { OcChart } from "@/components/synthese/oc-chart";
@@ -55,7 +58,7 @@ export function RapportDetail({ rapport, allRapports }: Props) {
               : <><AlertCircle className="h-3 w-3" />Instable</>
             }
           </Badge>
-          {rapport.id === 6 && <Badge variant="stable">Profil final</Badge>}
+          {rapport.id === finalId && <Badge variant="stable">Profil final</Badge>}
         </div>
         <h1 className="gradient-text text-2xl font-bold tracking-tight leading-snug sm:text-3xl">
           {rapport.titre}

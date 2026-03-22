@@ -2,7 +2,9 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { rapports } from "@/data/rapports";
+import { rapports, getRapportFinal } from "@/data/rapports";
+
+const finalId = getRapportFinal().id;
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { OcChart } from "@/components/synthese/oc-chart";
@@ -100,7 +102,7 @@ export function SynthesePage() {
               <Link href={`/rapports/${rapport.id}`} className="block h-full">
                 <div className={cn(
                   "group relative h-full overflow-hidden rounded-xl border transition-all duration-300",
-                  rapport.id === 6
+                  rapport.id === finalId
                     ? "border-[hsl(var(--emerald)/0.3)] bg-[hsl(var(--emerald)/0.04)] hover:border-[hsl(var(--emerald)/0.5)]"
                     : rapport.profil.bsod
                     ? "border-[hsl(var(--rose)/0.2)] bg-[hsl(var(--rose)/0.03)]"

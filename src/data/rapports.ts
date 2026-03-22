@@ -204,5 +204,10 @@ export const getRapportById = (id: number) =>
 
 export const getRapportStable = () => rapports.filter((r) => r.profil.stable);
 
-export const getRapportFinal = () =>
-  rapports.find((r) => r.id === 6) ?? rapports[rapports.length - 1];
+export const getRapportFinal = (): Rapport => {
+  const final = rapports.find((r) => r.id === 6);
+  if (final) return final;
+  const last = rapports[rapports.length - 1];
+  if (!last) throw new Error("rapports array is empty");
+  return last;
+};
