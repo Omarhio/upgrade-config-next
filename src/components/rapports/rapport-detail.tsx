@@ -3,32 +3,27 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import type { Rapport } from "@/data/rapports";
-import { getRapportFinal } from "@/data/rapports";
-
-const finalId = getRapportFinal().id;
+import { getRapportFinal, getPrevRapport, getNextRapport } from "@/data/rapports";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { OcChart } from "@/components/synthese/oc-chart";
+import { OcChart } from "@/components/ui/charts/oc-chart";
+import { TempValue } from "@/components/ui/temp-value";
+import { StatusBadge } from "@/components/rapports/status-badge";
 import {
-  ChevronLeft, ChevronRight, CheckCircle2, XCircle, AlertCircle,
+  ChevronLeft, ChevronRight,
   Cpu, Thermometer, Zap, Clock, BookOpen, Shield, Eye,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+
+const finalId = getRapportFinal().id;
 
 interface Props {
   rapport: Rapport;
   allRapports: Rapport[];
 }
 
-function TempValue({ temp }: { temp: number | null }) {
-  if (temp === null) return <span className="num text-[hsl(var(--muted-foreground))]">—</span>;
-  const cls = temp > 90 ? "temp-hot" : temp > 80 ? "temp-warm" : "temp-cool";
-  return <span className={cn("num font-semibold", cls)}>{temp} °C</span>;
-}
-
 export function RapportDetail({ rapport, allRapports }: Props) {
-  const prev = allRapports.find((r) => r.id === rapport.id - 1);
-  const next = allRapports.find((r) => r.id === rapport.id + 1);
+  const prev = getPrevRapport(rapport.id);
+  const next = getNextRapport(rapport.id);
 
   return (
     <motion.div
@@ -50,14 +45,7 @@ export function RapportDetail({ rapport, allRapports }: Props) {
       <div className="space-y-3">
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant={rapport.methode === "BIOS" ? "bios" : "ryzenmaster"}>{rapport.methode}</Badge>
-          <Badge variant={rapport.profil.bsod ? "failed" : rapport.profil.stable ? "stable" : "warning"}>
-            {rapport.profil.bsod
-              ? <><XCircle className="h-3 w-3" />BSOD</>
-              : rapport.profil.stable
-              ? <><CheckCircle2 className="h-3 w-3" />Stable</>
-              : <><AlertCircle className="h-3 w-3" />Instable</>
-            }
-          </Badge>
+          <StatusBadge stable={rapport.profil.stable} bsod={rapport.profil.bsod} withIcon />
           {rapport.id === finalId && <Badge variant="stable">Profil final</Badge>}
         </div>
         <h1 className="gradient-text text-2xl font-bold tracking-tight leading-snug sm:text-3xl">
@@ -70,7 +58,6 @@ export function RapportDetail({ rapport, allRapports }: Props) {
 
       {/* Profil + Chart */}
       <div className="grid gap-5 lg:grid-cols-2">
-        {/* Profil */}
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-sm">
@@ -102,7 +89,6 @@ export function RapportDetail({ rapport, allRapports }: Props) {
           </CardContent>
         </Card>
 
-        {/* Chart */}
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm">Comparaison des tests</CardTitle>
