@@ -211,3 +211,9 @@ export const getRapportFinal = (): Rapport => {
   if (!last) throw new Error("rapports array is empty");
   return last;
 };
+
+export const getPrevRapport = (id: number) =>
+  rapports.find((r) => r.id === id - 1);
+
+export const getNextRapport = (id: number) =>
+  rapports.find((r) => r.id === id + 1);
