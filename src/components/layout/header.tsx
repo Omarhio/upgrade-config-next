@@ -15,7 +15,7 @@ const navLinks = [
 
 export function Header() {
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[hsl(var(--background)/0.75)] backdrop-blur-xl backdrop-saturate-150">
@@ -29,7 +29,7 @@ export function Header() {
               style={{ boxShadow: "0 0 12px hsl(var(--cyan) / 0.3)" }} />
           </div>
           <div>
-            <span className="font-[family-name:var(--font-syne)] text-sm font-700 tracking-tight">
+            <span className="font-[family-name:var(--font-syne)] text-sm font-bold tracking-tight">
               Upgrade Config
             </span>
             <span className="ml-2 text-[10px] font-[family-name:var(--font-jetbrains)] text-[hsl(var(--cyan)/0.7)] tracking-widest uppercase">
@@ -69,7 +69,7 @@ export function Header() {
 
         {/* Theme toggle */}
         <button
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
           className="group relative flex h-8 w-8 items-center justify-center rounded-md border border-[hsl(var(--border))] bg-transparent text-[hsl(var(--muted-foreground))] transition-all duration-200 hover:border-[hsl(var(--cyan)/0.3)] hover:text-[hsl(var(--cyan))]"
           aria-label="Basculer le thème"
         >

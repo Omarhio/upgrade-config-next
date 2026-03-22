@@ -127,17 +127,17 @@ export function ComparatifPage() {
             ))}
           </TabsList>
 
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.22 }}
+            >
           {sbcs.map((sbc) => (
             <TabsContent key={sbc.id} value={sbc.id}>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={sbc.id}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.22 }}
-                  className="grid gap-5 lg:grid-cols-3"
-                >
+                <div className="grid gap-5 lg:grid-cols-3">
                   {/* Image + meta */}
                   <Card className="lg:col-span-1">
                     <CardContent className="p-5 space-y-4">
@@ -231,10 +231,11 @@ export function ComparatifPage() {
                       </CardContent>
                     </Card>
                   )}
-                </motion.div>
-              </AnimatePresence>
+                </div>
             </TabsContent>
           ))}
+            </motion.div>
+          </AnimatePresence>
         </Tabs>
       </section>
     </div>

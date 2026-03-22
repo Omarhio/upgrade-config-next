@@ -189,7 +189,7 @@ export function SetupDashboard() {
               <Link href={`/rapports/${rapport.id}`} className="block">
                 <div className={cn(
                   "group relative overflow-hidden rounded-xl border transition-all duration-300",
-                  rapport.id === 6
+                  rapport.id === finalRapport.id
                     ? "border-[hsl(var(--emerald)/0.3)] bg-[hsl(var(--emerald)/0.04)] hover:border-[hsl(var(--emerald)/0.5)] hover:shadow-[0_0_24px_hsl(var(--emerald)/0.08)]"
                     : rapport.profil.bsod
                     ? "border-[hsl(var(--rose)/0.2)] bg-[hsl(var(--rose)/0.03)] hover:border-[hsl(var(--rose)/0.3)]"
@@ -240,7 +240,7 @@ export function SetupDashboard() {
                       Voir le rapport <ChevronRight className="h-3 w-3" />
                     </div>
                   </div>
-                  {rapport.id === 6 && (
+                  {rapport.id === finalRapport.id && (
                     <div className="h-[1px] bg-gradient-to-r from-[hsl(var(--emerald)/0.6)] via-[hsl(var(--cyan)/0.3)] to-transparent" />
                   )}
                 </div>

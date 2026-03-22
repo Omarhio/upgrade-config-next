@@ -15,7 +15,8 @@ interface Props {
 
 export function OcChart({ rapports, highlightId }: Props) {
   const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark";
+  // resolvedTheme est undefined avant hydratation — on traite undefined comme dark (defaultTheme)
+  const isDark = resolvedTheme !== "light";
 
   const data = rapports.map((r) => ({
     name: `T${r.id}`,
